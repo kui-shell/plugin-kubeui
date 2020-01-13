@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-kubeui",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Kubernetes visualization plugin for kubernetes",
   "license": "Apache-2.0",
   "keywords": [
