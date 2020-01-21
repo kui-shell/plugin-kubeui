@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-client",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Kui plugin that offers client defintion",
   "license": "Apache-2.0",
   "author": "Mengting Yan",
