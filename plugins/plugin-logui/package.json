@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-logui",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Kui kubernetes log visualization support",
   "license": "Apache-2.0",
   "keywords": [
