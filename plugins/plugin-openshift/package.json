@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-openshift",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Kui OpenShift support",
   "license": "Apache-2.0",
   "keywords": [
