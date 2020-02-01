@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-operator-framework",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Kui plugin for Operator Framework",
   "license": "Apache-2.0",
   "author": "Nick Mitchell",
@@ -22,7 +22,7 @@
   "main": "dist/index.js",
   "module": "mdist/index.js",
   "dependencies": {
-    "@kui-shell/plugin-kubeui": "^1.0.4",
+    "@kui-shell/plugin-kubeui": "^1.0.5",
     "debug": "4.1.1",
     "marked": "0.8.0"
   },

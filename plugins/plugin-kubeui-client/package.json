@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-kubeui-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Kui plugin that offers client defintion",
   "license": "Apache-2.0",
   "author": "Mengting Yan",
