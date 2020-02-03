@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-tekton",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Visualizations for Tekton Pipelines",
   "license": "Apache-2.0",
   "author": "Nick Mitchell",
@@ -24,8 +24,8 @@
   "main": "dist/index.js",
   "dependencies": {
     "@kui-shell/core": "^6.0.12",
+    "@kui-shell/plugin-kubeui": "^1.0.7",
     "@kui-shell/plugin-wskflow": "^6.0.12",
-    "@kui-shell/plugin-kubeui": "*",
     "debug": "4.1.1",
     "js-yaml": "3.13.1"
   },
