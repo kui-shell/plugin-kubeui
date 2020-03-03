@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-view-utilization",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A sample plugin for the Kui",
   "author": "Nick Mitchell",
   "license": "Apache-2.0",
@@ -14,7 +14,7 @@
   "module": "mdist/index.js",
   "dependencies": {
     "@kui-shell/core": "^7.0.8",
-    "@kui-shell/plugin-kubeui": "*",
+    "@kui-shell/plugin-kubeui": "^2.0.0",
     "bytes-iec": "3.1.0",
     "lorem-ipsum": "2.0.3",
     "uuid": "7.0.1"

@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-logui",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Kui kubernetes log visualization support",
   "license": "Apache-2.0",
   "keywords": [
@@ -30,7 +30,7 @@
     "@kui-shell/plugin-bash-like": "^7.0.8",
     "@kui-shell/plugin-core-support": "^7.0.8",
     "@kui-shell/plugin-editor": "^7.0.8",
-    "@kui-shell/plugin-kubeui": "*",
+    "@kui-shell/plugin-kubeui": "^2.0.0",
     "ansi_up": "4.0.4",
     "debug": "4.1.1",
     "js-yaml": "3.13.1"
