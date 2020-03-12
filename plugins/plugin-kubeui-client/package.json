@@ -1,6 +1,6 @@
 {
   "name": "@kui-shell/plugin-kubeui-client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Kui plugin that offers client defintion",
   "license": "Apache-2.0",
   "author": "Mengting Yan",
@@ -9,8 +9,8 @@
   "dependencies": {
     "@kui-shell/plugin-client-common": "^7.0.38",
     "@kui-shell/plugin-client-default": "^7.0.38",
-    "@kui-shell/plugin-view-utilization": "*",
-    "@kui-shell/plugin-kubeui": "*"
+    "@kui-shell/plugin-kubeui": "^2.0.1",
+    "@kui-shell/plugin-view-utilization": "^2.0.1"
   },
   "homepage": "https://github.com/IBM/kui#readme",
   "private": true,
