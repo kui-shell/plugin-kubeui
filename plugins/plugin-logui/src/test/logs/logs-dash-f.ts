@@ -40,68 +40,75 @@ function sleep(N: number) {
   return new Promise(resolve => setTimeout(resolve, N * 1000))
 }
 
-describe(`kubectl logs follow ${process.env.MOCHA_RUN_TARGET || ''}`, function(this: Common.ISuite) {
-  before(Common.before(this))
-  after(Common.after(this))
+const commands = ['kubectl']
+if (process.env.NEEDS_OC) {
+  commands.push('oc')
+}
 
-  const ns: string = createNS()
-  allocateNS(this, ns)
+commands.forEach(command => {
+  describe(`${command} logs follow ${process.env.MOCHA_RUN_TARGET || ''}`, function(this: Common.ISuite) {
+    before(Common.before(this))
+    after(Common.after(this))
 
-  const podName = 'vim'
-  const containerName = 'alpine'
-  it(`should create sample pod from URL`, () => {
-    return CLI.command(`echo ${inputEncoded} | base64 --decode | kubectl create -f - -n ${ns}`, this.app)
-      .then(ReplExpect.okWithString(podName))
-      .catch(Common.oops(this, true))
+    const ns: string = createNS()
+    allocateNS(this, ns)
+
+    const podName = 'vim'
+    const containerName = 'alpine'
+    it(`should create sample pod from URL`, () => {
+      return CLI.command(`echo ${inputEncoded} | base64 --decode | ${command} create -f - -n ${ns}`, this.app)
+        .then(ReplExpect.okWithString(podName))
+        .catch(Common.oops(this, true))
+    })
+
+    it(`should wait for the pod to come up`, () => {
+      return CLI.command(`${command} get pod ${podName} -n ${ns} -w`, this.app)
+        .then(ReplExpect.okWithCustom({ selector: Selectors.BY_NAME(podName) }))
+        .then(selector => waitForGreen(this.app, selector))
+        .catch(Common.oops(this, true))
+    })
+
+    it(`should follow the logs`, async () => {
+      try {
+        const res = await CLI.command(`${command} logs ${podName} -c ${containerName} -n ${ns} -f`, this.app)
+
+        const rows = Selectors.OUTPUT_N_STREAMING(res.count)
+
+        await sleep(sleepTime)
+        const text1 = await getTextContent(this.app, rows)
+        const nRows1 = text1.split(/\n/).length
+        console.log('nRows1', nRows1)
+
+        await sleep(sleepTime)
+        const text2 = await getTextContent(this.app, rows)
+        const nRows2 = text2.split(/\n/).length
+        console.log('nRows2', nRows2)
+        assert.ok(nRows2 > nRows1, `${nRows2} is not > ${nRows1}`)
+
+        await sleep(sleepTime)
+        const text3 = await getTextContent(this.app, rows)
+        const nRows3 = text3.split(/\n/).length
+        console.log('nRows3', nRows3)
+        assert.ok(nRows3 > nRows2, `${nRows3} is not > ${nRows2}`)
+
+        await this.app.client.click(rows)
+        await this.app.client.keys(Keys.ctrlC)
+
+        await sleep(sleepTime)
+        const text4 = await getTextContent(this.app, rows)
+        const nRows4 = text4.split(/\n/).length
+        console.log('nRows4', nRows4)
+
+        await sleep(sleepTime)
+        const text5 = await getTextContent(this.app, rows)
+        const nRows5 = text5.split(/\n/).length
+        console.log('nRows5', nRows5)
+        assert.strictEqual(nRows5, nRows4)
+      } catch (err) {
+        await Common.oops(this, true)(err)
+      }
+    })
+
+    deleteNS(this, ns)
   })
-
-  it(`should wait for the pod to come up`, () => {
-    return CLI.command(`kubectl get pod ${podName} -n ${ns} -w`, this.app)
-      .then(ReplExpect.okWithCustom({ selector: Selectors.BY_NAME(podName) }))
-      .then(selector => waitForGreen(this.app, selector))
-      .catch(Common.oops(this, true))
-  })
-
-  it(`should follow the logs`, async () => {
-    try {
-      const res = await CLI.command(`kubectl logs ${podName} ${containerName} -n ${ns} -f`, this.app)
-
-      const rows = Selectors.OUTPUT_N_STREAMING(res.count)
-
-      await sleep(sleepTime)
-      const text1 = await getTextContent(this.app, rows)
-      const nRows1 = text1.split(/\n/).length
-      console.log('nRows1', nRows1)
-
-      await sleep(sleepTime)
-      const text2 = await getTextContent(this.app, rows)
-      const nRows2 = text2.split(/\n/).length
-      console.log('nRows2', nRows2)
-      assert.ok(nRows2 > nRows1, `${nRows2} is not > ${nRows1}`)
-
-      await sleep(sleepTime)
-      const text3 = await getTextContent(this.app, rows)
-      const nRows3 = text3.split(/\n/).length
-      console.log('nRows3', nRows3)
-      assert.ok(nRows3 > nRows2, `${nRows3} is not > ${nRows2}`)
-
-      await this.app.client.click(rows)
-      await this.app.client.keys(Keys.ctrlC)
-
-      await sleep(sleepTime)
-      const text4 = await getTextContent(this.app, rows)
-      const nRows4 = text4.split(/\n/).length
-      console.log('nRows4', nRows4)
-
-      await sleep(sleepTime)
-      const text5 = await getTextContent(this.app, rows)
-      const nRows5 = text5.split(/\n/).length
-      console.log('nRows5', nRows5)
-      assert.strictEqual(nRows5, nRows4)
-    } catch (err) {
-      await Common.oops(this, true)(err)
-    }
-  })
-
-  deleteNS(this, ns)
 })

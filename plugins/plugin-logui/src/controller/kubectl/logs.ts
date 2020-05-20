@@ -86,7 +86,7 @@ function decorateLogLines(lines: string): string {
  * some ANSI control codes for coloring.
  *
  */
-async function doLogs(args: Arguments<LogOptions>) {
+export async function doLogs(args: Arguments<LogOptions>) {
   const streamed = args.parsedOptions.follow || args.parsedOptions.f
 
   // if we are streaming (logs -f), and the user did not specify a

@@ -28,6 +28,7 @@
   "main": "dist/index.js",
   "module": "mdist/index.js",
   "dependencies": {
+    "@kui-shell/plugin-logui": "^1.0.16",
     "@kui-shell/plugin-kubeui": "^1.0.16"
   },
   "krew": {

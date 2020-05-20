@@ -16,6 +16,7 @@
 
 import { Registrar } from '@kui-shell/core'
 import { commandPrefix, defaultFlags, doGet, doCreate, doDelete, doRun, doDescribe } from '@kui-shell/plugin-kubeui'
+import { doLogs } from '@kui-shell/plugin-logui'
 
 const command = 'oc'
 
@@ -26,4 +27,5 @@ export default (registrar: Registrar) => {
   registrar.listen(`/${commandPrefix}/${command}/describe`, doDescribe(command), defaultFlags)
   registrar.listen(`/${commandPrefix}/${command}/apply`, doCreate('apply', command), defaultFlags)
   registrar.listen(`/${commandPrefix}/${command}/create`, doCreate('create', command), defaultFlags)
+  registrar.listen(`/${commandPrefix}/${command}/logs`, doLogs, defaultFlags)
 }
